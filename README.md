@@ -1,2 +1,1 @@
-"# hud-script"  
 "SCRIPT DE HUD + VELOCIDAD REAL"  
