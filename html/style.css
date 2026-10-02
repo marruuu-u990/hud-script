@@ -1,0 +1,253 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: transparent;
+    font-family: Arial, Helvetica, sans-serif;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* ═══════════════════════════════════════
+   HUD PRINCIPAL
+═══════════════════════════════════════ */
+#hud {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 190px;
+    background: rgba(5, 5, 5, 0.62);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 9px 11px;
+    transition: opacity 0.2s ease, border-color 0.2s ease;
+}
+
+#hud.oculto { opacity: 0; }
+
+/* Modo edición */
+#hud.editable {
+    pointer-events: all;
+    cursor: grab;
+    border-color: rgba(250,204,21,0.5);
+}
+#hud.editable:active { cursor: grabbing; }
+
+#edit-banner {
+    display: none;
+    font-size: 8px;
+    font-weight: 700;
+    color: #fbbf24;
+    letter-spacing: 0.5px;
+    text-align: center;
+    margin-bottom: 8px;
+}
+#hud.editable #edit-banner { display: block; }
+
+/* Separadores */
+.sep { height: 1px; background: rgba(255,255,255,0.07); margin: 7px 0; }
+
+/* ── Filas ── */
+.fila { display: flex; align-items: center; gap: 8px; }
+
+.etq {
+    font-size: 9px; font-weight: 700; letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.26); width: 28px; flex-shrink: 0;
+}
+
+/* ── Barras ── */
+.barra-wrap {
+    flex: 1; height: 4px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 3px; overflow: hidden;
+}
+#fuel-fill {
+    height: 100%; width: 100%; border-radius: 3px;
+    background: #4ade80;
+    transition: width 0.3s ease, background 0.3s ease;
+}
+#rpm-fill {
+    height: 100%; width: 0%; border-radius: 3px;
+    background: #d4d4d4;
+    transition: width 0.05s linear, background 0.1s ease;
+}
+
+#fuel-pct {
+    font-size: 10px; font-weight: 700;
+    color: rgba(255,255,255,0.38);
+    width: 34px; text-align: right; flex-shrink: 0;
+}
+
+#marcha-num {
+    font-size: 15px; font-weight: 700;
+    color: rgba(255,255,255,0.55);
+    width: 16px; text-align: center; flex-shrink: 0;
+}
+
+/* ── Velocidad ── */
+#sec-velocidad { text-align: center; padding: 2px 0 2px; }
+
+#vel-num {
+    display: block; font-size: 50px; font-weight: 700;
+    color: #fff; line-height: 1; letter-spacing: -2px;
+}
+#vel-unidad {
+    display: block; font-size: 9px; font-weight: 700;
+    color: rgba(255,255,255,0.26); letter-spacing: 3px; margin-top: 1px;
+}
+
+/* Crucero */
+#crucero-tag {
+    margin-top: 4px; font-size: 10px; font-weight: 700;
+    color: #4ade80; letter-spacing: 1px;
+}
+#crucero-tag.oculto { display: none; }
+
+/* Low fuel */
+#low-fuel-tag {
+    margin-top: 4px; font-size: 9px; font-weight: 700;
+    color: #f87171; letter-spacing: 0.5px;
+    animation: parpadeo 1s infinite;
+}
+#low-fuel-tag.oculto { display: none; }
+
+/* ── Atajos ── */
+#atajos { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+#atajos span { font-size: 8px; color: rgba(255,255,255,0.18); }
+#atajos span b { color: rgba(255,255,255,0.42); font-weight: 700; }
+
+/* ── Indicadores ── */
+#indicadores { display: flex; justify-content: space-between; align-items: center; }
+
+.ind { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+
+.dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: rgba(255,255,255,0.09);
+    transition: background 0.15s ease;
+}
+.ind-etq {
+    font-size: 7px; font-weight: 700; letter-spacing: 0.2px;
+    color: rgba(255,255,255,0.15); transition: color 0.15s ease;
+    white-space: nowrap;
+}
+
+#ind-cinturon.apagado  .dot     { background: #f87171; }
+#ind-cinturon.apagado  .ind-etq { color: #f87171; }
+#ind-cinturon.encendido .dot    { background: #4ade80; }
+#ind-cinturon.encendido .ind-etq{ color: #4ade80; }
+
+#ind-luces.on .dot    { background: #fbbf24; }
+#ind-luces.on .ind-etq{ color: #fbbf24; }
+#ind-altas.on .dot    { background: #60a5fa; }
+#ind-altas.on .ind-etq{ color: #60a5fa; }
+#ind-motor.on .dot    { background: #4ade80; }
+#ind-motor.on .ind-etq{ color: #4ade80; }
+
+#ind-izq.on .dot    { background: #f97316; animation: parpadeo 0.55s infinite; }
+#ind-izq.on .ind-etq{ color: #f97316; }
+#ind-der.on .dot    { background: #f97316; animation: parpadeo 0.55s infinite; }
+#ind-der.on .ind-etq{ color: #f97316; }
+
+@keyframes parpadeo {
+    0%,100% { opacity: 1; }
+    50%      { opacity: 0.1; }
+}
+
+/* ═══════════════════════════════════════
+   OVERLAY GASOLINERA
+═══════════════════════════════════════ */
+#fuel-overlay {
+    position: fixed;
+    right: 45px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 210px;
+    transition: opacity 0.3s ease;
+}
+#fuel-overlay.oculto { opacity: 0; pointer-events: none; }
+
+#fo-screen {
+    position: relative;
+    background: #050e05;
+    border: 2px solid #1c3d1c;
+    border-radius: 6px;
+    padding: 16px;
+    overflow: hidden;
+}
+
+/* Scanlines LCD */
+#fo-scanlines {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0,0,0,0.07) 0px,
+        rgba(0,0,0,0.07) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+    pointer-events: none;
+}
+
+#fo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 2px;
+}
+#fo-nombre {
+    font-size: 11px; font-weight: 700;
+    color: #4ade80; letter-spacing: 1px;
+    text-transform: uppercase;
+}
+#fo-pump {
+    font-size: 9px; color: rgba(74,222,128,0.5); letter-spacing: 1px;
+}
+
+.fo-sep { height: 1px; background: #1c3d1c; margin: 10px 0; }
+
+#fo-datos { display: flex; flex-direction: column; gap: 6px; }
+
+.fo-fila { display: flex; justify-content: space-between; align-items: center; }
+
+.fo-label {
+    font-size: 9px; font-weight: 700;
+    color: rgba(74,222,128,0.45); letter-spacing: 1.5px;
+}
+
+#fo-litros-act {
+    font-size: 18px; font-weight: 700;
+    color: #4ade80; letter-spacing: -1px;
+    font-variant-numeric: tabular-nums;
+}
+#fo-precio {
+    font-size: 18px; font-weight: 700;
+    color: #4ade80; letter-spacing: -1px;
+    font-variant-numeric: tabular-nums;
+}
+
+#fo-barra-wrap {
+    height: 6px;
+    background: rgba(74,222,128,0.12);
+    border-radius: 3px;
+    overflow: hidden;
+}
+#fo-barra-fill {
+    height: 100%; width: 0%;
+    background: #4ade80;
+    border-radius: 3px;
+    transition: width 0.1s linear;
+}
+
+#fo-status {
+    margin-top: 8px;
+    font-size: 9px; font-weight: 700;
+    color: rgba(74,222,128,0.55);
+    letter-spacing: 2px;
+    text-align: center;
+    animation: parpadeo 1.2s infinite;
+}

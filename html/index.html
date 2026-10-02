@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>velocidad_real</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ── HUD PRINCIPAL ─────────────────────────────────────────── -->
+    <div id="hud" class="oculto">
+        <div id="edit-banner">MODO EDICION — arrastra el HUD — ESC para guardar</div>
+
+        <div class="fila" id="sec-fuel">
+            <span class="etq">FUEL</span>
+            <div class="barra-wrap">
+                <div id="fuel-fill"></div>
+            </div>
+            <span id="fuel-pct">100%</span>
+        </div>
+
+        <div class="sep"></div>
+
+        <div id="sec-velocidad">
+            <span id="vel-num">0</span>
+            <span id="vel-unidad">km/h</span>
+            <div id="crucero-tag" class="oculto">CRUISE &bull; <span id="crucero-vel">0</span> km/h</div>
+            <div id="low-fuel-tag" class="oculto">⚠ COMBUSTIBLE BAJO</div>
+        </div>
+
+        <div class="sep"></div>
+
+        <div class="fila" id="sec-rpm">
+            <span class="etq">RPM</span>
+            <div class="barra-wrap">
+                <div id="rpm-fill"></div>
+            </div>
+            <span id="marcha-num">N</span>
+        </div>
+
+        <div class="sep"></div>
+
+        <div id="atajos">
+            <span><b>B</b> BELT</span>
+            <span><b>H</b> LUZ</span>
+            <span><b>G</b> ENG</span>
+            <span><b>Y</b> CRUISE</span>
+            <span><b>/vr_hud</b> MOVER</span>
+        </div>
+
+        <div class="sep"></div>
+
+        <div id="indicadores">
+            <div id="ind-cinturon" class="ind">
+                <div class="dot"></div><span class="ind-etq">BELT</span>
+            </div>
+            <div id="ind-luces" class="ind">
+                <div class="dot"></div><span class="ind-etq">LUZ</span>
+            </div>
+            <div id="ind-altas" class="ind">
+                <div class="dot"></div><span class="ind-etq">ALTAS</span>
+            </div>
+            <div id="ind-izq" class="ind">
+                <div class="dot"></div><span class="ind-etq">&#8592; IZQ</span>
+            </div>
+            <div id="ind-der" class="ind">
+                <div class="dot"></div><span class="ind-etq">DER &#8594;</span>
+            </div>
+            <div id="ind-motor" class="ind">
+                <div class="dot"></div><span class="ind-etq">ENG</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── OVERLAY GASOLINERA ─────────────────────────────────────── -->
+    <div id="fuel-overlay" class="oculto">
+        <div id="fo-screen">
+            <div id="fo-scanlines"></div>
+            <div id="fo-header">
+                <span id="fo-nombre">GAS STATION</span>
+                <span id="fo-pump">BOMBA</span>
+            </div>
+            <div class="fo-sep"></div>
+            <div id="fo-datos">
+                <div class="fo-fila">
+                    <span class="fo-label">LITROS</span>
+                    <span id="fo-litros-act">0.0 L</span>
+                </div>
+                <div class="fo-fila">
+                    <span class="fo-label">TOTAL</span>
+                    <span id="fo-precio">$0.00</span>
+                </div>
+            </div>
+            <div class="fo-sep"></div>
+            <div id="fo-barra-wrap">
+                <div id="fo-barra-fill"></div>
+            </div>
+            <div id="fo-status">CARGANDO...</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
